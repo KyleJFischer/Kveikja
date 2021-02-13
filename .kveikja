@@ -1,0 +1,8 @@
+name: "funke"
+launch:
+  - execute:
+      argument: "code ."
+  - application:
+      argument: "notepad"
+  - project:
+      argument: "Micky"

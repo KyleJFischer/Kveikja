@@ -1,0 +1,8 @@
+projectDbLocation: resources\projectDb.yaml
+applicationDbLocation: resources\applicationDb.yaml
+defaultKeyWord: launch
+applicationKeyWord: application
+projectKeyWord: project
+executeKeyWord: execute
+debugAlwaysOn: True
+projectFileName: .kveikja
