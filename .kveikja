@@ -1,0 +1,6 @@
+name: "funke"
+launch:
+  - execute:
+      argument: "ping google.com"
+  - application:
+      argument: "notepad"
