@@ -13,7 +13,7 @@ defaultKeyWord = 'launch'
 executeKeyWord = 'execute'
 applicationKeyWord = 'application'
 projectKeyWord = 'project'
-
+websiteKeyWord = 'website'
 #Database Locations
 applicationDbLocation = r'resources\programDb.yaml'
 projectDbLocation = r'resources\projectDb.yaml'
@@ -55,11 +55,12 @@ def loadSettingsFromConfig(config):
     projectFileName = config['projectFileName']
 
 def loadKeyWordsFromConfig(config):
-    global defaultKeyWord, executeKeyWord, applicationKeyWord, projectKeyWord  
+    global defaultKeyWord, executeKeyWord, applicationKeyWord, projectKeyWord, webSiteKeyWord  
     defaultKeyWord = config['defaultKeyWord']
     executeKeyWord = config['executeKeyWord']
     applicationKeyWord = config['applicationKeyWord']
     projectKeyWord = config['projectKeyWord']
+    websiteKeyWord = config['websiteKeyWord']
     
 def loadDatabaseLocationsFromConfig(config):
     global applicationDbLocation, projectDbLocation
