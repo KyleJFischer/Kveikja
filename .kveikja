@@ -1,6 +1,8 @@
-name: "funke"
+name: "kev"
 launch:
-  - execute:
-      argument: "ping google.com"
-  - application:
-      argument: "notepad"
+    - execute:
+        argument: "ping google.com"
+    - application:
+        argument: "notepad"
+    - website:
+        argument: www.google.com
