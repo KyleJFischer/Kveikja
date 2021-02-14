@@ -12,7 +12,7 @@ def init():
     appKeyWord = kConfig.applicationKeyWord
     loaded = True
 
-def runCommand(command):
+def runCommands(command):
     if (not loaded):
         init()
     for item in command:
