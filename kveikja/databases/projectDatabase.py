@@ -1,5 +1,6 @@
 import yaml
-
+import utils.kConfig as kConfig
+import utils.kLogger as kLogger
 loaded = False
 
 locationOfDb = ''
@@ -8,9 +9,11 @@ projectDb = None
 projectDbKeys = None
 
 def init(projectDbLocation):
+    kLogger.printDebug('Starting Initing of Project Db')
     global locationOfDb
     locationOfDb = projectDbLocation
     loadProjectDb()
+    kLogger.printDebug('Done Initing Project Db')
 
 def loadProjectDb():
     global projectDb, projectDbKeys, loaded
@@ -20,9 +23,11 @@ def loadProjectDb():
             projectDbKeys = list(projectDb)
             loaded = True
 
-
 def getPathFromProjectDb(projectName):
+    if (projectDb is None):
+        init(kConfig.getFullPath('projectDbLocation'))
     if projectName in projectDbKeys:
-        return projectDb[projectName]
+        projectPath = projectDb[projectName]
+        return projectPath
 
     return None    

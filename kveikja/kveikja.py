@@ -3,8 +3,10 @@ import os
 import subprocess
 import sys
 import utils.kConfig as kConfig
-
-
+import databases.applicationDatabase as appDb
+import databases.projectDatabase as projDb
+import utils.commandManager as cmdManager
+import utils.kLogger as kLogger
 KVEIKJA_LOCATION = ''
 
 filePath = ''
@@ -14,19 +16,11 @@ commands = {}
 keys = []
 
 
-
-#Debuging
-def printd(input):
-    if (kConfig.debugAlwaysOn):
-        print(input)
-
 #Loading
 def init():
     global KVEIKJA_LOCATION
     KVEIKJA_LOCATION = os.getenv('KVEIKJA_HOME')
     kConfig.init()
-    kDatabases.loadProjectDb()
-    kDatabases.loadApplicationDb()
 
 def load(fileName):
     global commands, keys
@@ -36,31 +30,23 @@ def load(fileName):
 
 #MAIN EXECUTABLE
 def runKVEIKJA(pathToProjectFile):
+    kLogger.printDebug('Loading Project File: ' + pathToProjectFile)
     load(pathToProjectFile)
     if kConfig.defaultKeyWord not in keys:
+        kLogger.printDebug('Couldnt Find Default KeyWord')
         return False
+    kLogger.printDebug('Executing Commands')    
     for command in commands[kConfig.defaultKeyWord]:
-        runCommand(command)
+        cmdManager.runCommand(command)
 
     return True
-#Run The Types of Commands
-def runCommand(command):
-    for item in command:
-        lowerCaseCommand = item.lower()
-        if (lowerCaseCommand == kConfig.executeKeyWord):
-            runExecute(command[item])
-        elif (lowerCaseCommand == kConfig.applicationKeyWord):
-            runProgram(command[item])
-        elif (lowerCaseCommand == kConfig.projectKeyWord):
-            runProject(command[item])        
+ 
 
-def runExecute(commandDetails):
-    os.system(commandDetails['argument'])
 
 def runProgram(commandDetails):
     programName = commandDetails['argument']
 
-    programDetails = getPathFromProgramDb(programName)
+    programDetails = appDb.getPathFromApplicationDb(programName)
     if (programDetails == None):
         print("No Program Found: " + programName)
         return
@@ -73,28 +59,20 @@ def runProject(commandDetails):
     runProjectByName(projectName)
 
 def runProjectByName(projectName):
-    print()
-    projectDetails = getPathFromProjectDb(projectName)
+    projDb.init
+    projectDetails = projDb.getPathFromProjectDb(projectName)
     if (projectDetails == None):
         print("No Project Found: " + projectName)
         return
 
     runKVEIKJA(projectDetails['path'])
-    printd('Project Executed: ' +  projectDetails['path'])
 
-
-
-
-
-
-def figureOutIfPath(input):
-    return False
 
 if __name__ == "__main__":
     init()
     argumentCount = len(sys.argv)
-    
+    kLogger.printDebug('Arguement Count: ' + str(argumentCount))
     if (argumentCount == 1):
-        runKVEIKJA(".kveikja")
+        runKVEIKJA(kConfig.projectFileName)
     if (argumentCount == 2):
         runProjectByName(sys.argv[1])

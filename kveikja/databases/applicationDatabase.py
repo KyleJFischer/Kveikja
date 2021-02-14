@@ -1,4 +1,5 @@
 import yaml
+from utils import kConfig
 
 loaded = False
 
@@ -16,15 +17,15 @@ def init(applicationDbLocation):
 def loadApplicationDb():
     global applicationDb, applicationDbKeys, loaded 
     if not loaded:
-        with open(os.path.join(KVEIKJA_LOCATION, kConfig.applicationDbLocation)) as file:
+        with open(locationOfDb) as file:
             applicationDb = yaml.full_load(file)
             applicationDbKeys = list(applicationDb)
             loaded = True
 
-
 def getPathFromApplicationDb(programName):
     if (applicationDbKeys == None):
-        loadApplicationDb()
+        appDbLocation = kConfig.getFullPath('applicationDbLocation')
+        init(appDbLocation)
     if programName in applicationDbKeys:
         return applicationDb[programName]
 

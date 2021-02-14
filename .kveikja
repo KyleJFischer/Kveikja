@@ -1,8 +1,6 @@
 name: "funke"
 launch:
   - execute:
-      argument: "code ."
+      argument: "ping google.com"
   - application:
       argument: "notepad"
-  - project:
-      argument: "Micky"

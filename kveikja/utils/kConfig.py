@@ -29,6 +29,16 @@ def init():
         loadConfigSettings(location)
         loaded = True
 
+def getFullPath(input):
+    if (input == 'applicationDbLocation'):
+        return os.path.join(KVEIKJA_LOCATION, applicationDbLocation)
+    if (input == 'projectDbLocation'):
+        return os.path.join(KVEIKJA_LOCATION, projectDbLocation)
+    if (input == 'CONFIG_LOCATION'):
+        return os.path.join(KVEIKJA_LOCATION, CONFIG_LOCATION)
+    else:
+        return os.path.join(KVEIKJA_LOCATION, input)
+
 def loadConfigSettings(location):
     global applicationDbLocation, projectDbLocation
     print('ourLocation', location)
